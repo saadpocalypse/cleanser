@@ -1,0 +1,95 @@
+{
+  "name": "cleanser",
+  "displayName": "Cleanser",
+  "description": "A VSCode extension that helps you remove comments and console logs from your code files. This extension supports JavaScript, TypeScript, React, CSS, HTML, and Python files.",
+  "version": "0.0.1",
+  "publisher": "ahmadsaad",
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saadpocalypse/cleanser.git"
+  },
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "comments",
+    "logs",
+    "cleanup",
+    "code cleanup",
+    "remove comments",
+    "remove logs"
+  ],
+  "icon": "media/icon.png",
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cleanser.removeComments",
+        "title": "Remove Comments (All Files)"
+      },
+      {
+        "command": "cleanser.removeLogs",
+        "title": "Remove Console Logs (All Files)"
+      },
+      {
+        "command": "cleanser.removeBoth",
+        "title": "Remove Comments and Logs (All Files)"
+      },
+      {
+        "command": "cleanser.removeCommentsInFile",
+        "title": "Remove Comments (Current File)"
+      },
+      {
+        "command": "cleanser.removeLogsInFile",
+        "title": "Remove Console Logs (Current File)"
+      },
+      {
+        "command": "cleanser.removeBothInFile",
+        "title": "Remove Comments and Logs (Current File)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "cleanser.removeCommentsInFile",
+          "group": "cleanser@1"
+        },
+        {
+          "command": "cleanser.removeLogsInFile",
+          "group": "cleanser@2"
+        },
+        {
+          "command": "cleanser.removeBothInFile",
+          "group": "cleanser@3"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.60.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "14.x",
+    "eslint": "^7.27.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "glob": "^7.1.7",
+    "mocha": "^8.4.0",
+    "typescript": "^4.3.2",
+    "vscode-test": "^1.5.2"
+  }
+}
