@@ -1,9 +1,9 @@
 {
   "name": "cleanser",
   "displayName": "Cleanser",
-  "description": "A VSCode extension that helps you remove comments and console logs from your code files. This extension supports JavaScript, TypeScript, React, CSS, HTML, and Python files.",
-  "version": "0.0.1",
-  "publisher": "ahmadsaad",
+  "description": "Remove comments and console logs with a single click.",
+  "version": "0.0.5",
+  "publisher": "AhmadSaad",
   "private": false,
   "license": "MIT",
   "repository": {

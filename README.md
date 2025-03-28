@@ -91,7 +91,7 @@ console.debug('Debug message');
 
 // Another comment
 
-return  true;
+    return  true;
 
 }
 
@@ -107,7 +107,7 @@ return  true;
 
 function  example()  {
 
-return  true;
+    return  true;
 
 }
 
@@ -116,63 +116,13 @@ return  true;
    <br>
 
 
-##  Requirements
-
-  
-
-- VSCode 1.60.0 or higher
-
-  
- <br>
-
-##  Extension Settings
-
-  
-
-This extension does not contribute any settings.
-
-  <br>
-
-
-##  Known Issues
-
-  
-
-None at the moment.
-
-  <br>
-
-
-##  Release Notes
-
-  
-
-###  0.0.1
-
-  
-
-Initial release of Cleanser:
-
-- Basic comment removal functionality
-
-- Support for multiple file types
-
-- Command palette integration
-
-- Context menu integration
-
-- Single file and all files support
-
-    <br>
-
-
 ##  Contributing
 
   
 
 I appreciate all contributions, feel free to submit a pull request!
 
-Check out the repository [here](https://github.com/saadpocalypse/cleanser.git).
+Check out the repository [here](https://github.com/saadpocalypse/cleanser).
 
   <br>
 

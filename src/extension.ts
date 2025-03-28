@@ -3,29 +3,27 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
-    // All files commands
-    let removeComments = vscode.commands.registerCommand('comment-and-log-remover.removeComments', async () => {
+    let removeComments = vscode.commands.registerCommand('cleanser.removeComments', async () => {
         await processFiles('comments');
     });
 
-    let removeLogs = vscode.commands.registerCommand('comment-and-log-remover.removeLogs', async () => {
+    let removeLogs = vscode.commands.registerCommand('cleanser.removeLogs', async () => {
         await processFiles('logs');
     });
 
-    let removeBoth = vscode.commands.registerCommand('comment-and-log-remover.removeBoth', async () => {
+    let removeBoth = vscode.commands.registerCommand('cleanser.removeBoth', async () => {
         await processFiles('both');
     });
 
-    // Single file commands
-    let removeCommentsInFile = vscode.commands.registerCommand('comment-and-log-remover.removeCommentsInFile', async () => {
+    let removeCommentsInFile = vscode.commands.registerCommand('cleanser.removeCommentsInFile', async () => {
         await processCurrentFile('comments');
     });
 
-    let removeLogsInFile = vscode.commands.registerCommand('comment-and-log-remover.removeLogsInFile', async () => {
+    let removeLogsInFile = vscode.commands.registerCommand('cleanser.removeLogsInFile', async () => {
         await processCurrentFile('logs');
     });
 
-    let removeBothInFile = vscode.commands.registerCommand('comment-and-log-remover.removeBothInFile', async () => {
+    let removeBothInFile = vscode.commands.registerCommand('cleanser.removeBothInFile', async () => {
         await processCurrentFile('both');
     });
 
@@ -141,7 +139,6 @@ function removeCommentsFromFile(content: string, fileExtension: string): string 
             case '.jsx':
             case '.ts':
             case '.tsx':
-                // Handle multi-line comments
                 if (trimmedLine.startsWith('/*')) {
                     inMultiLineComment = true;
                     shouldKeep = false;
@@ -156,50 +153,40 @@ function removeCommentsFromFile(content: string, fileExtension: string): string 
                 break;
 
             case '.css':
-                // Handle multi-line comments
                 const commentStartIndex = line.indexOf('/*');
                 const commentEndIndex = line.indexOf('*/');
                 
-                // If this line contains a complete comment (both start and end)
                 if (commentStartIndex !== -1 && commentEndIndex !== -1 && commentEndIndex > commentStartIndex) {
                     shouldKeep = false;
                 }
-                // If this line starts a comment
                 else if (commentStartIndex !== -1) {
                     inMultiLineComment = true;
                     shouldKeep = false;
                 }
-                // If this line ends a comment
                 else if (commentEndIndex !== -1) {
                     inMultiLineComment = false;
                     shouldKeep = false;
                 }
-                // If we're inside a comment
                 else if (inMultiLineComment) {
                     shouldKeep = false;
                 }
                 break;
 
             case '.html':
-                // Handle HTML comments
                 const htmlCommentStartIndex = line.indexOf('<!--');
                 const htmlCommentEndIndex = line.indexOf('-->');
                 
-                // If this line contains a complete comment (both start and end)
                 if (htmlCommentStartIndex !== -1 && htmlCommentEndIndex !== -1 && htmlCommentEndIndex > htmlCommentStartIndex) {
                     shouldKeep = false;
                 }
-                // If this line starts a comment
                 else if (htmlCommentStartIndex !== -1) {
                     inMultiLineComment = true;
                     shouldKeep = false;
                 }
-                // If this line ends a comment
                 else if (htmlCommentEndIndex !== -1) {
                     inMultiLineComment = false;
                     shouldKeep = false;
                 }
-                // If we're inside a comment
                 else if (inMultiLineComment) {
                     shouldKeep = false;
                 }
@@ -212,13 +199,11 @@ function removeCommentsFromFile(content: string, fileExtension: string): string 
                 break;
         }
 
-        // Keep the line if it's not a comment
         if (shouldKeep) {
             result.push(line);
         }
     }
 
-    // Join lines and clean up multiple consecutive empty lines
     let cleanedResult = result.join('\n');
     cleanedResult = cleanedResult.replace(/\n\s*\n\s*\n/g, '\n\n');
     
@@ -238,12 +223,12 @@ function removeLogsFromFile(content: string, fileExtension: string): string {
             case '.jsx':
             case '.ts':
             case '.tsx':
-                if (trimmedLine.match(/^console\.(log|debug|info|warn|error)\((.*?)\);?$/)) {
+                if (trimmedLine.match(/^\s*console\.(log|debug|info|warn|error)\s*\(/)) {
                     shouldKeep = false;
                 }
                 break;
             case '.py':
-                if (trimmedLine.match(/^print\((.*?)\)$/)) {
+                if (trimmedLine.match(/^\s*print\s*\(/)) {
                     shouldKeep = false;
                 }
                 break;
